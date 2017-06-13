@@ -70,3 +70,13 @@ Toutes les variables qui ont le format "$_MAJ" sont dites **superglobales**. Ell
 
 Tous les **paramètres de l'url** sont contenu dans cette variable globale **$_GET**
 
+---
+
+### Création d'une session
+
+Quand on se connecte, on a besoin d'une session qui contiendra toutes les données qui doivent nous "suivre" pendant toute la durée de la session
+
+Fichier texte côté serveur qui contiendra toutes nos variables
+
+**Voir le fichier log.php**
+
