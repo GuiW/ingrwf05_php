@@ -63,3 +63,10 @@ On peut également, au lieu d'utiliser la concaténation avec les **.** , englob
 
       //Le endif est important pour terminer la condition
     ?>
+
+En php, il y a **toujours** la variable globale **$_GET** qui est un array.
+
+Toutes les variables qui ont le format "$_MAJ" sont dites **superglobales**. Elles peuvent êtres utilisées dans tous les scripts.
+
+Tous les **paramètres de l'url** sont contenu dans cette variable globale **$_GET**
+
