@@ -19,12 +19,20 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>GET</title>
   <style>
-    body {
-      display : flex;
-      align-content : stretch;
+    form {
+      background : lightgrey;
+      max-width : 200px;
+      padding : 10px;
     }
-    aside {
-      width : 20%;
+
+    label {
+      display : block;
+      margin-bottom : 4px;
+    }
+
+    input {
+      margin-bottom : 5px;
+      width : 100%;
     }
   </style>
 </head>

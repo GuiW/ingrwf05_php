@@ -80,3 +80,28 @@ Fichier texte côté serveur qui contiendra toutes nos variables
 
 **Voir le fichier log.php**
 
+---
+
+### Réécriture d'url
+
+Création d'un fichier **.htaccess**
+
+**Voir le fichier .htaccess**
+
+---
+
+### Dans la base de données
+
+Moteur de stockage :
+- InnoDB : Une base de données où on fera surtout de la recherche
+- MyISAM : Une base de données qui sera soumise à beaucoup de changements.
+
+2 méthodes pour se connecter à une DB :
+- Si je veux que mes scripts php puissent se connecter à n'importe quelle type de DB. Il faudra utiliser **PDO** (un outil qui permet de faire abstraction du type de DB). PDO est installé de base dans mamp.
+- (mysql => abandonné) et **mysqli** pour travailler en natif avec mysql. L'avantage par rapport à PDO est qu'il est plus rapide.
+
+Pour se connecter à la DB, on a besoin de 4 infos :
+- Le nom du serveur,
+- Le nom de la DB,
+- Le nom d'utilisateur,
+- Le MDP

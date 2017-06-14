@@ -1,6 +1,6 @@
 <footer>
-    &copy; 2017 - Cepegra
-  </footer>
+  &copy; 2017 - Cepegra
+</footer>
 </body>
 </html>
 <?php
