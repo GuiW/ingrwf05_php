@@ -1,9 +1,33 @@
 <?php
-  //
   //avec require, s'il ne trouve pas le fichier, le script s'arrête
   require("config.php")
 ?>
 <?php
+// ************************************************************************** //
+
+//On met TOUJOURS les requêtes INSERT avant les SELECT
+if ( isset($_POST['insert_personne']) ) : 
+  //"sprintf" recoit 7 arguments : la requête + les 6 variables venant du post
+  //On utilise "sprintf" pour retourner une chaîne formatée
+  //Le 1er %s correspond à la premiere variable, le 2eme %s correspond au deuxième, etc.
+  $sql = sprintf("INSERT INTO personnes SET nom = '%s', prenom = '%s', email='%s', telephone = '%s', ddn = '%s', genre = '%s'",
+  //La fonction addslashes ajoute des slash s'il y a des ' dans le texte
+  addslashes($_POST['nom']),
+  addslashes($_POST['prenom']),
+  $_POST['email'],
+  $_POST['telephone'],
+  $_POST['ddn'],
+  $_POST['genre']
+  );
+  $connect -> query($sql);
+  echo $connect -> error;
+  //la redirection nettoie le post et nous permet de repartir avec une requête propre
+  header("location:listing.php");
+  exit;
+endif; 
+
+// ************************************************************************** //
+
   //On définit la requête sql dans une variable
   $sql = "SELECT * FROM personnes ORDER BY nom, prenom";
 
@@ -29,6 +53,8 @@
     echo $connect->error;
     $the_nb_personne = $the_personne->num_rows;
   endif;
+
+// ************************************************************************** //
 ?>
 
 
@@ -41,6 +67,10 @@
   <title>Listing</title>
 
   <style>
+    * {
+      box-sizing : border-box;
+    }
+
     body {
       font-family : arial;
       display : flex;
@@ -49,6 +79,39 @@
     }
     main {
       width : 80%;
+    }
+
+    form {
+      background : lightgrey;
+      max-width : 400px;
+      padding : 20px;
+      margin-top : 20px;
+      border-radius : 10px;
+    }
+
+    form>input {
+      width : 100%;
+      line-height : 25px;
+      margin-bottom : 15px;
+      border-radius : 5px;
+      border : none;
+    }
+
+    form>label {
+      display : block;
+    }
+    fieldset {
+      max-width : 100px;
+      margin-bottom : 10px;
+    }
+
+    button {
+      background : dimgrey;
+      border: none;
+      box-shadow : 0px 4px 0px #444;
+      color : white;
+      font-size : 1rem;
+      padding : 10px 15px;
     }
   </style>
 
@@ -69,10 +132,36 @@
         </dl>
     <?php endwhile;
     
-    else :
-      echo "personne";
+    else : ?>
+      <form action="" method="post">
+        <label for="name">Nom :</label>
+        <input type="text" name="nom" id="name">
+        <br>
+        <label for="">Prénom :</label>
+        <input type="text" name="prenom" id="firstname">
+        <br>
+        <label for="">Email :</label>
+        <input type="text" name="email" id="mail">
+        <br>
+        <label for="">Téléphone :</label>
+        <input type="text" name="telephone" id="tel">
+        <br>
+        <label for="">Date de naissance :</label>
+        <input type="date" name="ddn" id="ddn">
+        <br>
+        <fieldset>
+          <legend>Genre : </legend>
+          <label for="male">M</label>
+          <input type="radio" name="genre" value="M" id="male">
+          <label for="female">F</label>
+          <input type="radio" name="genre" value="F" id="female">
+        </fieldset>
+        <input type="hidden" name="insert_personne">
+        <button>Insérer</button>
+        
+      </form>
 
-    endif; ?>
+    <?php endif; ?>
   </main>
 
   <aside>
@@ -91,3 +180,7 @@
   </aside>
 </body>
 </html>
+
+<?php
+  //print_r($_POST);
+?>

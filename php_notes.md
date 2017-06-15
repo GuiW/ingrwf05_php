@@ -71,6 +71,13 @@ Toutes les variables qui ont le format "$_MAJ" sont dites **superglobales**. Ell
 Tous les **paramètres de l'url** sont contenu dans cette variable globale **$_GET**
 
 ---
+### Activer l'affichage des erreurs php
+
+- Dans le dossier de mamp -> bin -> php -> version de mamp (voir dans phpinfo) -> conf -> php.ini :
+  - error_reporting E_ALL & E_NOTICE
+  - display_error On
+
+---
 
 ### Création d'une session
 
@@ -95,6 +102,8 @@ Création d'un fichier **.htaccess**
 Moteur de stockage :
 - InnoDB : Une base de données où on fera surtout de la recherche
 - MyISAM : Une base de données qui sera soumise à beaucoup de changements.
+
+On va créer un fichier **config.php** qui va servir à se connecter avec le serveur
 
 2 méthodes pour se connecter à une DB :
 - Si je veux que mes scripts php puissent se connecter à n'importe quelle type de DB. Il faudra utiliser **PDO** (un outil qui permet de faire abstraction du type de DB). PDO est installé de base dans mamp.
