@@ -114,3 +114,9 @@ Pour se connecter à la DB, on a besoin de 4 infos :
 - Le nom de la DB,
 - Le nom d'utilisateur,
 - Le MDP
+
+---
+
+### Crypter un mdp dans la DB
+
+MD5 : http://www.md5.cz/
