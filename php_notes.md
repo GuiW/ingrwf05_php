@@ -120,3 +120,9 @@ Pour se connecter à la DB, on a besoin de 4 infos :
 ### Crypter un mdp dans la DB
 
 MD5 : http://www.md5.cz/
+
+## AJAX
+
+On ne peut lancer une requête que si on a un domaine (localhost est un domaine)
+
+C'est sur le serveur qu'il faut accepter le cross domaine.

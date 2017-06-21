@@ -6,6 +6,11 @@
 // ************************************************************************** //
 
 //On met TOUJOURS les requêtes INSERT avant les SELECT
+if ( isset($_GET['ajax'])) :
+  print_r($_POST);
+  $object = json_decode($_POST['data']);
+  exit;
+endif;
 if ( isset($_POST['insert_personne']) ) : 
   //"sprintf" recoit 7 arguments : la requête + les 6 variables venant du post
   //On utilise "sprintf" pour retourner une chaîne formatée
@@ -54,6 +59,13 @@ endif;
     $the_nb_personne = $the_personne->num_rows;
   endif;
 
+  //SI ON A DE L'AJAX
+  if ( isset($_GET['ajax']) ) :
+    $row = $the_personne -> fetch_object();
+    echo json_encode($row);
+    exit;
+  endif;
+
 // ************************************************************************** //
 ?>
 
@@ -66,71 +78,25 @@ endif;
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Listing</title>
 
-  <style>
-    * {
-      box-sizing : border-box;
-    }
-
-    body {
-      font-family : arial;
-      display : flex;
-      width : 75%;
-      margin : 0 auto;
-    }
-    main {
-      width : 80%;
-    }
-
-    form {
-      background : lightgrey;
-      max-width : 400px;
-      padding : 20px;
-      margin-top : 20px;
-      border-radius : 10px;
-    }
-
-    form>input {
-      width : 100%;
-      line-height : 25px;
-      margin-bottom : 15px;
-      border-radius : 5px;
-      border : none;
-    }
-
-    form>label {
-      display : block;
-    }
-    fieldset {
-      max-width : 100px;
-      margin-bottom : 10px;
-    }
-
-    button {
-      background : dimgrey;
-      border: none;
-      box-shadow : 0px 4px 0px #444;
-      color : white;
-      font-size : 1rem;
-      padding : 10px 15px;
-    }
-  </style>
+  <link rel="stylesheet" href="css/listing.css">
 
 </head>
 <body>
   <main>
+   
     <?php if ( isset($the_nb_personne) AND $the_nb_personne > 0 ) :
-
+    
       while ( $row = $the_personne -> fetch_object() ) : ?>
         <h1>Fiche :</h1>
         <h2><?php echo $row->prenom ?> <?php echo $row->nom ?></h2>
-        <p><?php echo ($row->genre == "M") ? "Né" : "Née"; ?> le <?php echo ($row->ddn != '') ? $row->ddn : "Inconnu"; ?></p>
+        <p class="ddn"><?php echo ($row->genre == "M") ? "Né" : "Née"; ?> le <?php echo ($row->ddn != '') ? $row->ddn : "Inconnu"; ?></p>
         <dl>
           <dt>Email</dt>
-          <dd><?php echo ($row->email != '') ? $row->email : "Inconnu"; ?></dd>
+          <dd class="email"><?php echo ($row->email != '') ? $row->email : "Inconnu"; ?></dd>
           <dt>Tel</dt>
-          <dd><?php echo ($row->telephone != '') ? $row->telephone : "Inconnu"; ?></dd>
+          <dd class="tel"><?php echo ($row->telephone != '') ? $row->telephone : "Inconnu"; ?></dd>
         </dl>
-    <?php endwhile;
+     <?php endwhile;
     
     else : ?>
       <form action="" method="post">
@@ -162,15 +128,18 @@ endif;
       </form>
 
     <?php endif; ?>
+
   </main>
 
   <aside>
+  <!-- Lien de retour du formulaire -->
+  <a href="listing.php" class="return-btn">&larr; Retour</a>
   <!-- On vérifie si il y a des lignes dans notre table -->
   <?php if($nb_personnes > 0) : ?>
-  <ul>
+  <ul class="listing">
     <!-- Boucle pour afficher les propriétés nom et prénoms de chaque ligne de la table -->
     <?php while( $row = $q_personnes->fetch_object() ) : ?>
-      <li><a href="?id_personnes=<?php echo $row->id_personnes ?>"><?php echo $row->nom ?> <?php echo $row->prenom ?></a></li>
+      <li><a href="listing.php?id_personnes=<?php echo $row->id_personnes ?>"><?php echo $row->nom ?> <?php echo $row->prenom ?></a></li>
     <?php endwhile; ?>
   </ul>
   <?php else :
@@ -178,6 +147,8 @@ endif;
 
   endif; ?>
   </aside>
+
+  <script src="script/ajax.js"></script>
 </body>
 </html>
 
